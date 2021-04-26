@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Disease{% endblock %}
+{% include 'header.html' %}
+{% include 'menu.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <h2>Display <b>Park Details</b></h2>
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Park Name</th>
+                        <th>Borough</th>
+                        <th>Acre</th>
+                        <th>Status</th>
+                        <th>Pcode</th>
+                        <th>Map</th>
+                    </tr>
+
+                    {% for row in data['results']['bindings'] %}
+                     <tr>
+                        <td>{{row['parkname']['value']}}</td>
+                        <td>{{row['name']['value']}}</td>
+                        <td>{{row['acre']['value']}}</td>
+                        <td>{{row['status']['value']}}</td>
+                        <td>{{row['pcode']['value']}}</td>
+                        <td> <a href="https://maps.google.com/?q={{row['lati']['value']}},{{row['logi']['value']}}">
+      <img src="{{url_for('static',filename='images/map.png')}}" height="50" width="50" alt="map" />
+ </a></td>
+
+
+                    </tr>
+                    {% endfor %}
+                </table>
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
