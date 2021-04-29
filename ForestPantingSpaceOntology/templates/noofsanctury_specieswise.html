@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Disease{% endblock %}
+{% include 'header.html' %}
+{% include 'menu.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <h2>Display <b>Park Details</b></h2>
+                <h6>Dispaly Species Wise Number of sanctury </h6>
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Species</th>
+                        <th>Number of Sanctury</th>
+                    </tr>
+
+                    {% for row in data['results']['bindings'] %}
+                     <tr>
+                        <td>{{row['species']['value']}}</td>
+                        <td>{{row['numberofsanctury']['value']}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- Add Modal Start -->
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+

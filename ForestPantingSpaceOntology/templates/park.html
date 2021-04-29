@@ -16,17 +16,17 @@
                         <th>Borough</th>
                         <th>Acre</th>
                         <th>Status</th>
-                        <th>Pcode</th>
+                        <th>Habitat Type</th>
                         <th>Map</th>
                     </tr>
 
                     {% for row in data['results']['bindings'] %}
                      <tr>
                         <td>{{row['parkname']['value']}}</td>
-                        <td>{{row['name']['value']}}</td>
+                        <td>{{row['bname']['value']}}</td>
                         <td>{{row['acre']['value']}}</td>
                         <td>{{row['status']['value']}}</td>
-                        <td>{{row['pcode']['value']}}</td>
+                         <td>{{row['htype']['value']}}</td>
                         <td> <a href="https://maps.google.com/?q={{row['lati']['value']}},{{row['logi']['value']}}">
       <img src="{{url_for('static',filename='images/map.png')}}" height="50" width="50" alt="map" />
  </a></td>
