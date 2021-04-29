@@ -49,7 +49,7 @@ def Park():
                                  ?y test:Name ?bname . 
                                  ?x test:hasStatus ?z .
                                   ?z test:PSStatusValue  ?status .
-                                FILTER regex(?htype, "Salt", "i") 
+                                FILTER regex(?htype, "Forest", "i") 
                                 FILTER regex(?status, "emp", "i")
                                 FILTER regex(?bname, "", "i")
                                 FILTER regex(?parkname, "", "i")
@@ -81,10 +81,10 @@ def Sanctury():
  ?y test:PostalCode ?pcode .
  ?x test:hasStatus ?z .
   ?z test:PSStatusValue  ?status .
-FILTER regex(?status, "", "i") 
+FILTER regex(?status, "emp", "i") 
 FILTER regex(?sancturyname, "", "i") 
 FILTER regex(?htype, "", "i") 
-FILTER regex(?species, "duck", "i") 
+FILTER regex(?species, "her", "i") 
 }
 order by ?x
                 """
