@@ -1,9 +1,10 @@
+#Main body of the code.
 from flask import Flask, render_template
 import requests
 
 app = Flask(__name__)
 
-prefixquery = """PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefixquery = """PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
                 PREFIX owl: <http://www.w3.org/2002/07/owl#>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -20,7 +21,7 @@ def Index():
     query1 = prefixquery + """
 SELECT (MAX(?sanctury_id)+1 AS ?sid) WHERE { ?x a test:Sanctury . ?x test:SancturyID ?sanctury_id . }
                         """
-    r1 = requests.get(url, params={'format': 'json', 'query': query1})
+    r1 = requests.get(url, params={'format': 'json', 'query': query1}) 
     results1 = r1.json()
 
     query2 = prefixquery + """
@@ -31,7 +32,8 @@ SELECT (MAX(?sanctury_id)+1 AS ?sid) WHERE { ?x a test:Sanctury . ?x test:Sanctu
 
     return render_template("index.html", data=results, data1=results1, data2=results2 )
 
-
+#First query
+#Someone is looking for an empty park based on a particular habitat type ("Forest" in this case) to know where can one plants that suit the given habitat type and total land that is unpopulated.
 @app.route('/park')
 def Park():
     title="Park"
@@ -49,7 +51,7 @@ def Park():
                                  ?y test:Name ?bname . 
                                  ?x test:hasStatus ?z .
                                   ?z test:PSStatusValue  ?status .
-                                FILTER regex(?htype, "Forest", "i") 
+                                FILTER regex(?htype, "fore", "i") 
                                 FILTER regex(?status, "emp", "i")
                                 FILTER regex(?bname, "", "i")
                                 FILTER regex(?parkname, "", "i")
@@ -61,7 +63,8 @@ def Park():
     #print(results)
     return render_template("park.html", data=results)
 
-
+#Second Query
+#Given any endangered species("White-Crowned Sparrows" in this case), we can find a sanctuary that best suits the species with filters such as habitat type, so we can preserve it.
 @app.route('/sanctury')
 def Sanctury():
     title="Park"
@@ -81,10 +84,10 @@ def Sanctury():
  ?y test:PostalCode ?pcode .
  ?x test:hasStatus ?z .
   ?z test:PSStatusValue  ?status .
-FILTER regex(?status, "emp", "i") 
+FILTER regex(?status, "", "i") 
 FILTER regex(?sancturyname, "", "i") 
 FILTER regex(?htype, "", "i") 
-FILTER regex(?species, "her", "i") 
+FILTER regex(?species, "White-Crowned Sparrows", "i") 
 }
 order by ?x
                 """
@@ -92,7 +95,8 @@ order by ?x
     results = r.json()
     return render_template("sanctury.html", data=results)
 
-
+#Third Query:
+#Gives the number of sancturies where a particular specie("herons" in case) is found.
 @app.route('/noofsanctury')
 def NoofSanctury():
     title="NoofSanctury"
